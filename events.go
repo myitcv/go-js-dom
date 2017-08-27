@@ -152,11 +152,11 @@ func CreateEvent(typ string, opts EventOptions) *BasicEvent {
 }
 
 func (ev *BasicEvent) Bubbles() bool {
-	return ev.Get("bubbles").Bool()
+	return ev.Get("bubbles").AsBool()
 }
 
 func (ev *BasicEvent) Cancelable() bool {
-	return ev.Get("cancelable").Bool()
+	return ev.Get("cancelable").AsBool()
 }
 
 func (ev *BasicEvent) CurrentTarget() Element {
@@ -164,11 +164,11 @@ func (ev *BasicEvent) CurrentTarget() Element {
 }
 
 func (ev *BasicEvent) DefaultPrevented() bool {
-	return ev.Get("defaultPrevented").Bool()
+	return ev.Get("defaultPrevented").AsBool()
 }
 
 func (ev *BasicEvent) EventPhase() int {
-	return ev.Get("eventPhase").Int()
+	return ev.Get("eventPhase").AsInt()
 }
 
 func (ev *BasicEvent) Target() Element {
@@ -176,14 +176,14 @@ func (ev *BasicEvent) Target() Element {
 }
 
 func (ev *BasicEvent) Timestamp() time.Time {
-	ms := ev.Get("timeStamp").Int()
+	ms := ev.Get("timeStamp").AsInt()
 	s := ms / 1000
 	ns := (ms % 1000 * 1e6)
 	return time.Unix(int64(s), int64(ns))
 }
 
 func (ev *BasicEvent) Type() string {
-	return ev.Get("type").String()
+	return ev.Get("type").AsString()
 }
 
 func (ev *BasicEvent) PreventDefault() {
@@ -256,7 +256,7 @@ type KeyboardEvent struct {
 }
 
 func (ev *KeyboardEvent) ModifierState(mod string) bool {
-	return ev.Call("getModifierState", mod).Bool()
+	return ev.Call("getModifierState", mod).AsBool()
 }
 
 type MediaStreamEvent struct{ *BasicEvent }
@@ -286,7 +286,7 @@ func (ev *MouseEvent) RelatedTarget() Element {
 }
 
 func (ev *MouseEvent) ModifierState(mod string) bool {
-	return ev.Call("getModifierState", mod).Bool()
+	return ev.Call("getModifierState", mod).AsBool()
 }
 
 type MutationEvent struct{ *BasicEvent }
